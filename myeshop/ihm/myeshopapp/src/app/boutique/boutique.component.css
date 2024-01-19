@@ -1,0 +1,27 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.product-card {
+  max-width: calc(20%);
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  margin-right: 16px;
+
+}
+
+.example-header-image {
+  background-size: cover;
+}
+
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}

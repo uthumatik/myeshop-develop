@@ -1,0 +1,56 @@
+
+<div class="center-container">
+    <h1 class="title">Bienvenue sur My Eshop</h1>
+    <div class="flex-container">
+        <div class="container">
+            <form [formGroup]="form">
+                <h1>Créez un compte!</h1>
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Nom" [formControl]="nameFormControl" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Prenom" [formControl]="prenomFormControl" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" placeholder="e-mail" [formControl]="mailFormControl" required>
+                    <mat-error *ngIf="mailFormControl.hasError('email')">
+                        L'adresse e-mail n'est pas valide.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Adresse" [formControl]="adresseFormControl" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="password" placeholder="Password" [formControl]="passwordFormControl" required>
+                    <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+                        Le mot de passe doit contenir au moins 6 caractères.
+                    </mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="primary" type="submit" (click)="creerCompte()" [disabled]="!form.valid">Creer compte</button> 
+            </form>
+        
+        </div>
+            
+        <div class="container">
+            <form [formGroup]="formLog">
+                <h1>Connectez-vous!</h1>
+                <mat-form-field>
+                    <input matInput type="text" placeholder="Adresse e-mail" [formControl]="mailLogFormControl" required>
+                    <mat-error *ngIf="mailFormControl.hasError('email')">
+                        L'adresse e-mail n'est pas valide.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="password" placeholder="Password" [formControl]="passwordLogFormControl" required>
+                    <mat-error>
+                        E-mail ou mot de passe incorrect.
+                    </mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="primary" type="submit" (click)="login()">Se connecter</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

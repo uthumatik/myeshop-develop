@@ -1,0 +1,53 @@
+
+.flex-container {
+    min-width: 800px;
+    display: flex;
+    flex-wrap: row wrap;
+}
+      
+.container {
+    width: 100%; /* Take up full width on smaller screens */
+    max-width: 500px; /* Limit the width on larger screens */
+    margin-bottom: 20px; /* Add some space between containers */
+    box-sizing: border-box; /* Include padding and border in the width */
+    border-radius: 20px;
+    padding: 16px;
+    margin-right: 20px; /* Adjust this value based on your design preferences */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24), 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+button {
+    padding: 12px 20px;
+    margin: 8px;
+    border: none;  
+    border-radius: 20px;
+    background-color: black;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 0.5px;
+    box-sizing: border-box;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'LiliaOne', sans-serif;
+}

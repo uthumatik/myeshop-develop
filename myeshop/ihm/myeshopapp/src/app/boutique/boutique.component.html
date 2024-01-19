@@ -1,0 +1,103 @@
+<mat-toolbar style="position: fixed; top: 0; width: 100%; z-index: 1000;">
+  <button mat-icon-button class="example-icon favorite-icon" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
+  <span>My E-Shop</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" (click)="openCommandesDialog()">
+    <mat-icon>person</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" (click)="openDialog()">
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+</mat-toolbar>
+<div style="margin-top: 64px; padding: 16px;">
+    <div style="height: 100%; width: 100%; margin: 10px;">
+        <h2>Catalogue de produit</h2>
+
+        <section class="example-section">
+          <label class="example-margin">Catégorie : </label>
+          <mat-radio-group [(ngModel)]="selectedCategory">
+            <mat-radio-button class="example-margin" value="all" (click)="selectCategory('all')">Tous</mat-radio-button>
+            <mat-radio-button class="example-margin" value="FRUIT" (click)="selectCategory('FRUIT')">Fruits</mat-radio-button>
+            <mat-radio-button class="example-margin" value="LEGUME" (click)="selectCategory('LEGUME')">Légumes</mat-radio-button>
+            <mat-radio-button class="example-margin" value="VIANDE" (click)="selectCategory('VIANDE')">Viande</mat-radio-button>
+            <mat-radio-button class="example-margin" value="POISSON" (click)="selectCategory('POISSON')">Poisson</mat-radio-button>
+          </mat-radio-group>
+        </section>
+      
+        <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="start" style="margin-right: 16px;">
+          <mat-card *ngFor="let product of filterProductsByCategory()" fxFlex.gt-xs="calc(20%)" class="product-card">
+            <img mat-card-image [src]="'./assets/img/'+ getName(product)+'.png'" style="width: 180px;height: 150px;background-size: cover;background-position: center;overflow: hidden;">
+            <mat-card-header>
+              <mat-card-title>{{ product.nom }}</mat-card-title>
+              <mat-card-subtitle>${{ product.prix }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{ product.description }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-raised-button color="primary" (click)="ajouterProduit(product.id)">Ajouter</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+    </div>
+</div>
+
+
+  
+<ng-template #panierTemplate>
+    <mat-dialog-content class="mat-typography" style="height: 600px; width: 600px;">
+        <h2>Mon panier</h2>
+            <mat-card *ngFor="let product of panier" style=" margin-bottom: 5px; cursor: pointer;">
+                <mat-card-content style="padding: 12px; display: flex; align-items: center;">
+                    <div mat-card-avatar class="example-header-image" style="margin-right:5px ;"></div>
+                    <mat-card-title>{{ product.produit.nom }} x {{ produit.produit.quantite }}</mat-card-title>
+                    <span class="example-spacer"></span>
+                    <mat-card-subtitle>{{ produit.produit.quantite * produit.produit.produit.prix }}$</mat-card-subtitle>
+                    <button mat-button color="warn" (click)="retirerProduit(product.produit.id)">retirer</button>
+                </mat-card-content>
+            </mat-card>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Fermer</button>
+        <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="passerCommande()">Valider</button>
+    </mat-dialog-actions>
+</ng-template>
+
+<ng-template #commandesTemplate>
+    <mat-dialog-content class="mat-typography" style="height: 600px; width: 600px;">
+        <h2>Mon historique d'achat</h2>
+            <mat-card *ngFor="let commande of commandes" style=" margin-bottom: 5px; cursor: pointer;">
+                <mat-card-content style="padding: 12px; display: flex; align-items: center;" (click)="openCommandeDetailsDialog(commande)">
+                    <mat-card-title>{{ commande.id }}</mat-card-title>
+                    <span class="example-spacer"></span>
+                    <mat-card-subtitle>{{ commande.total }}$</mat-card-subtitle>
+                </mat-card-content>
+            </mat-card>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Fermer</button>
+    </mat-dialog-actions>
+</ng-template>
+
+<ng-template #commandeDetails let-data>
+  <mat-dialog-content class="mat-typography" style="height: 600px; width: 600px;">
+      <h2>Les produits de cette commande</h2>
+          <mat-card *ngFor="let produit of data.produits" style=" margin-bottom: 5px; cursor: pointer;">
+              <mat-card-content style="padding: 12px; display: flex; align-items: center;">
+                  <mat-card-title>
+                    {{ produit.nom }}
+                    <br>
+                    {{ produit.description }}
+                  </mat-card-title>
+                  <span class="example-spacer"></span>
+                  <mat-card-subtitle>{{ produit.prix }}$</mat-card-subtitle>
+              </mat-card-content>
+          </mat-card>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Fermer</button>
+  </mat-dialog-actions>
+</ng-template>
